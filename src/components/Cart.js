@@ -21,7 +21,7 @@ function Cart({ cart, updateCart }) {
 			{cart.length > 0 ? (
 				<div>
 					<h2>Panier</h2>
-					<ul>
+					<ul className="lmj-cart-ul">
 						{cart.map(({ name, price, quantity }, iIndex) => (
 							<div key={`${name}-${iIndex}`}>
 								{name} {quantity} x {price}€

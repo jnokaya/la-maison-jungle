@@ -15,15 +15,15 @@ import Categories from "./Categories"
  * @returns 
  */
 function ShoppingList({ cart, updateCart }) {
-    const [selectedCategory, updateSelectedCategory] = useState('')
+    const [selectedCategories, updateSelectedCategories] = useState([])
     const categList = plantList.reduce((aRes, oPlant) => {
         if (aRes.indexOf(oPlant.category) < 0) {
             aRes.push(oPlant.category)
         }
         return aRes
     }, [])
-    const aFilteredPlantList = selectedCategory !== '' ? plantList.filter((oPlant) => {
-        return oPlant.category === selectedCategory
+    const aFilteredPlantList = selectedCategories.length > 0 ? plantList.filter((oPlant) => {
+        return selectedCategories.indexOf(oPlant.category) >= 0
     }) : plantList
     /**
      * 
@@ -40,12 +40,12 @@ function ShoppingList({ cart, updateCart }) {
     }
     return (
         <div>
-            <Categories categories={categList} selectedCategory={selectedCategory} updateSelectedCategory={updateSelectedCategory} />
+            <Categories categories={categList} selectedCategories={selectedCategories} updateSelectedCategories={updateSelectedCategories} />
             <ul className="lmj-plant-list">
-                {aFilteredPlantList.map(({ name, cover, id, light, water, price }) => {
+                {aFilteredPlantList.map(({ name, cover, id, light, water, price, category }) => {
                     return (
                         <div key={id}>
-                            <PlantItem name={name} cover={cover} light={light} water={water} price={price} />
+                            <PlantItem name={name} cover={cover} light={light} water={water} price={price} category={category} />
                             <button onClick={(e) => { e.stopPropagation(); handleClick(name, price) }}>Ajouter</button>
                         </div>
                     )
