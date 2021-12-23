@@ -34,8 +34,9 @@ function ShoppingList({ cart, updateCart }) {
         if (!oCurrentPlantAdded) {
             updateCart([...cart, { name, price, quantity: 1 }])
         } else {
-            const cartFiltered = cart.filter((oPlant) => oPlant.name !== name)
-            updateCart([...cartFiltered, { name, price, quantity: oCurrentPlantAdded.quantity + 1 }])
+            const iInd = cart.indexOf(oCurrentPlantAdded)
+            cart[iInd].quantity++
+            updateCart([...cart])
         }
     }
     return (
