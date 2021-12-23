@@ -10,7 +10,8 @@ function App() {
 	let savedCart = JSON.parse(localStorage.getItem('cart'))
 	savedCart = savedCart && Array.isArray(savedCart) && savedCart.length > 0 ? savedCart : []
 	const [cart, updateCart] = useState(savedCart)
-	useEffect(()=>{
+	const [isEdit, setIsEdit] = useState(false)
+	useEffect(() => {
 		localStorage.setItem('cart', JSON.stringify(cart))
 	}, [cart])
 	return (
@@ -20,8 +21,8 @@ function App() {
 				<h1 className='lmj-title'>La maison jungle</h1>
 			</Banner>
 			<div className='lmj-layout-inner'>
-				<Cart cart={cart} updateCart={updateCart}/>
-				<ShoppingList cart={cart} updateCart={updateCart}/>
+				<Cart cart={cart} updateCart={updateCart} isEdit={isEdit} setIsEdit={setIsEdit} />
+				<ShoppingList cart={cart} updateCart={updateCart} isEdit={isEdit} />
 			</div>
 			<Footer />
 		</div>
