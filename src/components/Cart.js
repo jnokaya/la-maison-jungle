@@ -2,9 +2,8 @@ import { useState, useEffect } from 'react'
 import '../styles/Cart.css'
 
 
-function Cart({ cart, updateCart }) {
+function Cart({ cart, updateCart, isEdit, setIsEdit }) {
 	const [isOpen, setIsOpen] = useState(true)
-	const [isEdit, setIsEdit] = useState(false)
 	let tempCart = cart
 	const total = cart.reduce((iResult, { price, quantity }) => {
 		return iResult + (price * quantity)
@@ -18,11 +17,6 @@ function Cart({ cart, updateCart }) {
 		const filteredCart = cart.filter(({name})=> name !== sName)
 		oPlant.quantity = iQuantity
 		tempCart = [...filteredCart, oPlant]
-		// if(!iQuantity || iQuantity <= 0){
-		// 	updateCart(filteredCart)
-		// }else{
-		// 	updateCart([...filteredCart,oPlant])
-		// }		
 	}
 	return isOpen ? (
 		<div className='lmj-cart'>
@@ -45,7 +39,7 @@ function Cart({ cart, updateCart }) {
 						))}
 					</ul>
 					<h3>Total: {total}€</h3>
-					<button onClick={() => { setIsEdit(false); updateCart(cart) }}>Confirmer les modifications</button>
+					<button onClick={() => { setIsEdit(false); updateCart([...tempCart]) }}>Confirmer les modifications</button>
 					<button onClick={() => { updateCart([]) }}>Vider le panier</button>
 				</div>
 			) : (

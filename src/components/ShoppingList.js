@@ -14,7 +14,7 @@ import Categories from "./Categories"
  * @param       {*} updateCart 
  * @returns 
  */
-function ShoppingList({ cart, updateCart }) {
+function ShoppingList({ cart, updateCart, isEdit }) {
     const [selectedCategories, updateSelectedCategories] = useState([])
     const categList = plantList.reduce((aRes, oPlant) => {
         if (aRes.indexOf(oPlant.category) < 0) {
@@ -47,7 +47,11 @@ function ShoppingList({ cart, updateCart }) {
                     return (
                         <div key={id}>
                             <PlantItem name={name} cover={cover} light={light} water={water} price={price} category={category} />
-                            <button onClick={(e) => { e.stopPropagation(); handleClick(name, price) }}>Ajouter</button>
+                            {isEdit ? (
+                                <button disabled>Ajouter</button>
+                            ) : (
+                                <button onClick={(e) => { e.stopPropagation(); handleClick(name, price) }}>Ajouter</button>
+                            )}
                         </div>
                     )
                 })}
